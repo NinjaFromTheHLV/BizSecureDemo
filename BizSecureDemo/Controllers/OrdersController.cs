@@ -34,10 +34,11 @@ public class OrdersController : Controller
     }
     public async Task<IActionResult> Details(int id)
     {
+
         var uid = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         var order = await _db.Orders.FirstOrDefaultAsync(o => o.Id == id && o.UserId == uid);
 
-        if (order == null) return NotFound();
+        if (order == null) return Forbid();
         return View(order);
     }
 
