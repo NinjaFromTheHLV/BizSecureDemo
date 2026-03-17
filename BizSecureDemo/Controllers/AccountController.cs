@@ -1,14 +1,16 @@
-﻿using BizSecureDemo.Data;
+﻿using System.Security.Claims;
+using BizSecureDemo.Data;
 using BizSecureDemo.Models;
 using BizSecureDemo.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
+using Microsoft.AspNetCore.RateLimiting;
+
 namespace BizSecureDemo.Controllers;
+
 public class AccountController : Controller
 {
     private readonly AppDbContext _db;
@@ -37,6 +39,7 @@ public class AccountController : Controller
         await _db.SaveChangesAsync();
         return RedirectToAction("Login");
     }
+
     [EnableRateLimiting("login")]
     [HttpPost]
     [ValidateAntiForgeryToken]
